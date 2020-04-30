@@ -5,7 +5,7 @@ You can find the background and details in this article: https://drive.google.co
 
 ## How to setup
 
-To run this project, simply clone the repo and add the src files to a new Java project. Don't forget to edit the package name. Then add the two jar files in the External Libraries folder to your project. You will also need to place the Data folder in your project folder once you set the project up. 
+To run this project, simply clone the repo and add the src files to a new Java project. Don't forget to edit the package name. Then add the two jar files in the External Libraries folder to your project. You will also need to download the Data folder and add it to your peoject: https://drive.google.com/open?id=1JfKgRozt1ZPRfaNhgnFrCSQLZPvSD7KQ
 
 ## How to run
 
