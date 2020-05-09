@@ -1,7 +1,6 @@
 package com.dahrawy.EnhancingDragAndDrop;
 
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -26,12 +25,10 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 
 import org.jnativehook.NativeHookException;
@@ -42,19 +39,10 @@ import org.tensorflow.Session;
 import org.tensorflow.Tensor;
 
 public class Recognizer extends JFrame {
+	
+	private String destinationPath = "/Users/omar_aldahrawy/Desktop/Test/";
 
 	private static final long serialVersionUID = 1L;
-	private File folderDirectory;
-	private String folderName;
-	private JFileChooser folderCh;
-	private File[] folderContents;
-	private JPanel panel;
-	private JPanel pnl;
-	private JProgressBar pb;
-	private JFrame pbFrame;
-	private int progress = 0;
-	private ArrayList<File> images;
-	private DropPane dp;
 
 	private String modelpath;
 	private byte[] graphDef;
@@ -84,6 +72,7 @@ public class Recognizer extends JFrame {
 	private MouseListener mouseListener1;
 	private MouseListener mouseListener2;
 
+
 	public Recognizer() throws IOException, InterruptedException, NativeHookException {
 		createMouseListener1();
 		createMouseListener2();
@@ -91,7 +80,7 @@ public class Recognizer extends JFrame {
 		mouseInputListener = new MouseInputListener();
 		keyListener = new KeyListener();
 
-		modelpath = "/Users/omar_aldahrawy/Desktop/GUC/Semester 8/Enhancing Drag & Drop/inception_dec_2015";
+		modelpath = "Data";
 		graphDef = readAllBytesOrExit(Paths.get(modelpath, "graph.pb"));
 		labels = readAllLinesOrExit(Paths.get(modelpath, "labels.txt"));
 		
@@ -319,7 +308,7 @@ public class Recognizer extends JFrame {
 
 	public void completeOperation(File file , String operation) throws IOException {
 		inStream = new FileInputStream(file);
-		outStream = new FileOutputStream(new File("/Users/omar_aldahrawy/Desktop/Test/" + file.getName()));
+		outStream = new FileOutputStream(new File(destinationPath + file.getName()));
 		byte[] buffer = new byte[1024];
 		int length;
 		while ((length = inStream.read(buffer)) > 0){
