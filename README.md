@@ -1,7 +1,7 @@
 # Enhancing-Drag-And-Drop
 
 This project is a prototype of a proposed system that enhances drag-and-drop operations on pointer-input based computers. 
-Background and implementation details can be found in this [paper] (https://drive.google.com/open?id=1mnbdkZ_elqNBY4KdbrXUcjQY2XHtSv6S).
+Background and implementation details can be found in this [paper] (https://drive.google.com/open?id=1mnbdkZ_elqNBY4KdbrXUcjQY2XHtSv6S) .
 
 ## Description
 
