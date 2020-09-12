@@ -44,13 +44,12 @@ public class Recognizer extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private String modelpath;
 	private byte[] graphDef;
 
-	private DropPane dp1;
-	private DropPane dp2;
-	private DropPane dp3;
-	private DropPane dp4;
+	private DropPane copyPane;
+	private DropPane cutPane;
+	private DropPane copyRecognizePane;
+	private DropPane cutRecognizePane;
 	private String result = "Image contains:\n";
 	private ArrayList<ArrayList<String>> classes = new ArrayList<ArrayList<String>>();
 	private ArrayList<ArrayList<String>> operations = new ArrayList<ArrayList<String>>();
@@ -74,49 +73,58 @@ public class Recognizer extends JFrame {
 
 
 	public Recognizer() throws IOException, InterruptedException, NativeHookException {
+		
+		//Initializing listeners
+		
 		createMouseListener1();
 		createMouseListener2();
 
 		mouseInputListener = new MouseInputListener();
 		keyListener = new KeyListener();
+		
+		//Initializing model data from data folder
 
-		modelpath = "Data";
-		graphDef = readAllBytesOrExit(Paths.get(modelpath, "graph.pb"));
-		labels = readAllLinesOrExit(Paths.get(modelpath, "labels.txt"));
+		graphDef = readAllBytesOrExit(Paths.get("data", "graph.pb"));
+		labels = readAllLinesOrExit(Paths.get("data", "labels.txt"));
 		
 		containerFrame.add(new JScrollPane(container));
 		containerFrame2.add(new JScrollPane(container2));
+		
+		//Initializing Copy and Cut drop pane window
 
 		setSize(200, 200);
 		setLayout(new GridLayout(2, 2));
 		setAlwaysOnTop(true);
 
-		JLabel copy = new JLabel("Copy");
-		JLabel cut = new JLabel("Cut");
-		JLabel copyRec = new JLabel("<html>Copy &<br/>Recognize</html>");
-		JLabel cutRec = new JLabel("<html>Cut &<br/>Recognize</html>");
-		copy.setHorizontalAlignment(JLabel.CENTER);
-		cut.setHorizontalAlignment(JLabel.CENTER);
-		copyRec.setHorizontalAlignment(JLabel.CENTER);
-		cutRec.setHorizontalAlignment(JLabel.CENTER);
+		JLabel copyLabel = new JLabel("Copy");
+		JLabel cutLabel = new JLabel("Cut");
+		JLabel copyRecognizeLabel = new JLabel("<html>Copy &<br/>Recognize</html>");
+		JLabel cutRecognizeLabel = new JLabel("<html>Cut &<br/>Recognize</html>");
+		
+		copyLabel.setHorizontalAlignment(JLabel.CENTER);
+		cutLabel.setHorizontalAlignment(JLabel.CENTER);
+		copyRecognizeLabel.setHorizontalAlignment(JLabel.CENTER);
+		cutRecognizeLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		dp1 = new DropPane();
-		dp2 = new DropPane();
-		dp3 = new DropPane();
-		dp4 = new DropPane();
-		dp1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		dp2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		dp3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		dp4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		dp1.add(copy);
-		dp2.add(cut);
-		dp3.add(copyRec);
-		dp4.add(cutRec);
+		copyPane = new DropPane();
+		cutPane = new DropPane();
+		copyRecognizePane = new DropPane();
+		cutRecognizePane = new DropPane();
+		
+		copyPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		cutPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		copyRecognizePane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		cutRecognizePane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
+		copyPane.add(copyLabel);
+		cutPane.add(cutLabel);
+		copyRecognizePane.add(copyRecognizeLabel);
+		cutRecognizePane.add(cutRecognizeLabel);
 
-		add(dp1);
-		add(dp3);
-		add(dp2);
-		add(dp4);
+		add(copyPane);
+		add(cutPane);
+		add(copyRecognizePane);
+		add(cutRecognizePane);
 
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -157,21 +165,21 @@ public class Recognizer extends JFrame {
 				setVisible(true);
 			}
 
-			if(dp1.getFlag()) {
+			if(copyPane.getFlag()) {
 				setVisible(false);
-				copy(dp1);
+				copy(copyPane);
 			}
-			else if(dp2.getFlag()) {
+			else if(cutPane.getFlag()) {
 				setVisible(false);
-				cut(dp2);
+				cut(cutPane);
 			}
-			else if(dp3.getFlag()) {
+			else if(copyRecognizePane.getFlag()) {
 				setVisible(false);
-				copyRec(dp3);
+				copyRec(copyRecognizePane);
 			}
-			else if(dp4.getFlag()) {
+			else if(cutRecognizePane.getFlag()) {
 				setVisible(false);
-				cutRec(dp4);
+				cutRec(cutRecognizePane);
 			}
 		}
 	}
